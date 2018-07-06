@@ -3,15 +3,26 @@
 <head>
     <meta charset="utf-8">
     
-    <title>고군분투 대학원생의 데이터 분석</title>
+    <title>&#39;판다스 기초 01&#39; | 고군분투 대학원생의 데이터 분석</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="고군분투 대학원생의 데이터 분석">
-<meta property="og:url" content="https://ryan-chris.github.io/index.html">
+    <meta name="description" content="파이썬의 과학기술 분야 Ecosystem 1. Pandas 소개 [ Pandas API 공식 문서 ]http://pandas.pydata.org/pandas-docs/stable/api.html2. Pandas 주요 데이터 타입2.1. Series (시리즈) 1234# Pandas 라이브러리 사용import pandas as pd# 특정 개체를 지정해서 사">
+<meta name="keywords" content="Python,Pandas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;판다스 기초 01&#39;">
+<meta property="og:url" content="https://ryan-chris.github.io/2018/07/06/basic-pandas/index.html">
 <meta property="og:site_name" content="고군분투 대학원생의 데이터 분석">
+<meta property="og:description" content="파이썬의 과학기술 분야 Ecosystem 1. Pandas 소개 [ Pandas API 공식 문서 ]http://pandas.pydata.org/pandas-docs/stable/api.html2. Pandas 주요 데이터 타입2.1. Series (시리즈) 1234# Pandas 라이브러리 사용import pandas as pd# 특정 개체를 지정해서 사">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://ryan-chris.github.io/2018/07/06/basic-pandas/img/파이썬과학기술라이브러리.jpg">
+<meta property="og:image" content="https://ryan-chris.github.io/2018/07/06/basic-pandas/img/6pandas소개.jpg">
+<meta property="og:image" content="https://ryan-chris.github.io/2018/07/06/basic-pandas/img/Series소개.jpg">
+<meta property="og:image" content="https://ryan-chris.github.io/2018/07/06/basic-pandas/img/3문자열슬라이싱.jpg">
+<meta property="og:image" content="https://ryan-chris.github.io/2018/07/06/basic-pandas/img/조건색인.jpg">
+<meta property="og:updated_time" content="2018-07-06T04:55:03.452Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="고군분투 대학원생의 데이터 분석">
+<meta name="twitter:title" content="&#39;판다스 기초 01&#39;">
+<meta name="twitter:description" content="파이썬의 과학기술 분야 Ecosystem 1. Pandas 소개 [ Pandas API 공식 문서 ]http://pandas.pydata.org/pandas-docs/stable/api.html2. Pandas 주요 데이터 타입2.1. Series (시리즈) 1234# Pandas 라이브러리 사용import pandas as pd# 특정 개체를 지정해서 사">
+<meta name="twitter:image" content="https://ryan-chris.github.io/2018/07/06/basic-pandas/img/파이썬과학기술라이브러리.jpg">
     
 
     
@@ -200,16 +211,15 @@
 </aside>
 
             
-            <section id="main">
-    <article id="post-basic-pandas" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-basic-pandas" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
             <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/07/06/basic-pandas/">&#39;판다스 기초 01&#39;</a>
+        <h1 class="article-title" itemprop="name">
+            &#39;판다스 기초 01&#39;
         </h1>
     
 
@@ -570,136 +580,24 @@ index: Z, value: 67
         </footer>
     </div>
     
-</article>
-
-
-
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
         
-        
-            <header class="article-header">
-                
+<nav id="article-nav">
     
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/05/03/hello-world/">Hello World</a>
-        </h1>
     
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/05/03/hello-world/">
-            <time datetime="2018-05-02T15:20:32.400Z" itemprop="datePublished">2018-05-03</time>
+        <a href="/2018/05/03/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Hello World</div>
         </a>
-    </div>
-
-
-                        
-                        
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="https://ryan-chris.github.io/2018/05/03/hello-world/" data-id="cjj9hyi0s0002vcm3w3ekbcqf" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
     
+</nav>
 
-        </footer>
-    </div>
+
     
 </article>
 
+
+    
+    
 
 </section>
             
