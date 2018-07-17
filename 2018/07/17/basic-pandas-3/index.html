@@ -13,13 +13,13 @@
 <meta property="og:site_name" content="고군분투 대학원생의 데이터 분석">
 <meta property="og:description" content="3. 데이터 입출력12import pandas as pdfrom pandas import Series, DataFrame 1. csv 파일 읽기 - read_csv()data/ex1.csv 읽기 (컬럼명이 존재하는 csv 파일)1234data = pd.read_csv(&apos;./data/ex1.csv&apos;)print(data.shape)data.head() data">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://ryan-chris.github.io/2018/07/17/basic-pandas-3/img/csv파일예제.jpg">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/42825839-e46a9296-8a1d-11e8-9392-84117aa19bda.jpg">
 <meta property="og:image" content="https://ryan-chris.github.io/2018/07/17/basic-pandas-3/img/엑셀파일예제.jpg">
-<meta property="og:updated_time" content="2018-07-17T14:59:13.161Z">
+<meta property="og:updated_time" content="2018-07-17T15:03:00.792Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="판다스 기초 03">
 <meta name="twitter:description" content="3. 데이터 입출력12import pandas as pdfrom pandas import Series, DataFrame 1. csv 파일 읽기 - read_csv()data/ex1.csv 읽기 (컬럼명이 존재하는 csv 파일)1234data = pd.read_csv(&apos;./data/ex1.csv&apos;)print(data.shape)data.head() data">
-<meta name="twitter:image" content="https://ryan-chris.github.io/2018/07/17/basic-pandas-3/img/csv파일예제.jpg">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/29976233/42825839-e46a9296-8a1d-11e8-9392-84117aa19bda.jpg">
     
 
     
@@ -264,7 +264,7 @@
 <li>comment 인자를 이용하여, 주석은 데이터로 읽지 않음.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">'./data/ex4.csv'</span>, comment = <span class="string">'#'</span>)</span><br><span class="line"></span><br><span class="line">print(data.shape)</span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="실습-1-read-csv-실습"><a href="#실습-1-read-csv-실습" class="headerlink" title="실습 1. read_csv 실습"></a>실습 1. read_csv 실습</h3><h3 id="ex5-csv-파일-구분자는-공백-하나-‘-‘"><a href="#ex5-csv-파일-구분자는-공백-하나-‘-‘" class="headerlink" title="ex5.csv 파일 - 구분자는 공백 하나(‘ ‘)"></a>ex5.csv 파일 - 구분자는 공백 하나(‘ ‘)</h3><p><img src="./img/csv파일예제.jpg" alt="csv파일예제" style="width: 600px;"></p>
+<h3 id="실습-1-read-csv-실습"><a href="#실습-1-read-csv-실습" class="headerlink" title="실습 1. read_csv 실습"></a>실습 1. read_csv 실습</h3><h3 id="ex5-csv-파일-구분자는-공백-하나-‘-‘"><a href="#ex5-csv-파일-구분자는-공백-하나-‘-‘" class="headerlink" title="ex5.csv 파일 - 구분자는 공백 하나(‘ ‘)"></a>ex5.csv 파일 - 구분자는 공백 하나(‘ ‘)</h3><p><img src="https://user-images.githubusercontent.com/29976233/42825839-e46a9296-8a1d-11e8-9392-84117aa19bda.jpg" alt="csv 파일 예제"></p>
 <p>실습 1.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_csv(<span class="string">'./data/ex5.csv'</span>, sep = <span class="string">' '</span>, skiprows = [<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br></pre></td></tr></table></figure></p>
 <p>용량이 매우 큰 파일 읽기.</p>
 <blockquote>
