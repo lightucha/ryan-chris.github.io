@@ -3,15 +3,45 @@
 <head>
     <meta charset="utf-8">
     
-    <title>고군분투 대학원생의 데이터 분석</title>
+    <title>서포트 벡터 머신 기초(SVM, Support Vector Machine) | 고군분투 대학원생의 데이터 분석</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="고군분투 대학원생의 데이터 분석">
-<meta property="og:url" content="https://ryan-chris.github.io/index.html">
+    <meta name="description" content="본 포스팅은 Bigdata X Yonsei 교육 자료임을 밝힙니다. Support Vector Machine서포트 벡터 머신은 지도학습(Supervised learning)에서 유용하게 쓰이는 알고리즘이다.실습시간을 통해 직접 알고리즘을 구현해 보고 직관을 기르도록 하자. 12345# 실습에 필요한 패키지 불러오기import numpy as npimport">
+<meta name="keywords" content="Python,Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="서포트 벡터 머신 기초(SVM, Support Vector Machine)">
+<meta property="og:url" content="https://ryan-chris.github.io/2018/07/27/SVM_basic/SVM_기초_학생용/index.html">
 <meta property="og:site_name" content="고군분투 대학원생의 데이터 분석">
+<meta property="og:description" content="본 포스팅은 Bigdata X Yonsei 교육 자료임을 밝힙니다. Support Vector Machine서포트 벡터 머신은 지도학습(Supervised learning)에서 유용하게 쓰이는 알고리즘이다.실습시간을 통해 직접 알고리즘을 구현해 보고 직관을 기르도록 하자. 12345# 실습에 필요한 패키지 불러오기import numpy as npimport">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43298983-6b5632ac-9193-11e8-95eb-45d7c7c10f87.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299000-81ee0f12-9193-11e8-96bd-8b8de7f09db1.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299037-9f77bcfe-9193-11e8-9d5b-c102c9fa15a4.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299047-adc70634-9193-11e8-8519-93ad54754971.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299055-ba41479e-9193-11e8-9329-820f66d31d2c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299061-c2a374e8-9193-11e8-877e-41b89d69ebb0.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299081-cecb0038-9193-11e8-9b2b-a6ef0f5ec8a5.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299093-dc0b9744-9193-11e8-9c56-37bdc6102d7b.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299109-e6d0738e-9193-11e8-8a5a-3cc0c46d3ba3.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299125-f0dcecea-9193-11e8-9df3-e8744a64810c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299133-f8f950a8-9193-11e8-8828-966aad6c1cb1.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299144-01d01400-9194-11e8-9ca6-8eb2c13b99a8.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299147-091589a2-9194-11e8-941b-9c3605cb93dd.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299162-12ced2b4-9194-11e8-97fb-bd9290143bab.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299178-1d71cc76-9194-11e8-8096-f4e31d15bd68.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299188-2552c0c6-9194-11e8-89ca-cb9ad4b275fc.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299203-395074f6-9194-11e8-9681-77a35b31e178.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299207-401ef992-9194-11e8-92b6-5949733e51eb.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299214-4a28bf40-9194-11e8-9ffd-5ac693e417f6.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299216-51778970-9194-11e8-9354-c4e13054abc3.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299221-5b2f1514-9194-11e8-93a3-27c4c3989bdc.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299226-63ca9932-9194-11e8-9d04-018b51ce5c58.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299274-883f2c74-9194-11e8-8034-f88018a55d59.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43299297-93a50d9a-9194-11e8-8eda-e180c2033666.png">
+<meta property="og:updated_time" content="2018-07-27T03:05:44.028Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="고군분투 대학원생의 데이터 분석">
+<meta name="twitter:title" content="서포트 벡터 머신 기초(SVM, Support Vector Machine)">
+<meta name="twitter:description" content="본 포스팅은 Bigdata X Yonsei 교육 자료임을 밝힙니다. Support Vector Machine서포트 벡터 머신은 지도학습(Supervised learning)에서 유용하게 쓰이는 알고리즘이다.실습시간을 통해 직접 알고리즘을 구현해 보고 직관을 기르도록 하자. 12345# 실습에 필요한 패키지 불러오기import numpy as npimport">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/29976233/43298983-6b5632ac-9193-11e8-95eb-45d7c7c10f87.png">
     
 
     
@@ -200,16 +230,15 @@
 </aside>
 
             
-            <section id="main">
-    <article id="post-SVM_basic/SVM_기초_학생용" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-SVM_basic/SVM_기초_학생용" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
             <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/07/27/SVM_basic/SVM_기초_학생용/">서포트 벡터 머신 기초(SVM, Support Vector Machine)</a>
+        <h1 class="article-title" itemprop="name">
+            서포트 벡터 머신 기초(SVM, Support Vector Machine)
         </h1>
     
 
@@ -542,732 +571,24 @@
         </footer>
     </div>
     
-</article>
-
-
-
-    <article id="post-basic-pandas-3" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
         
-        
-            <header class="article-header">
-                
+<nav id="article-nav">
     
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/07/17/basic-pandas-3/">판다스 기초 03</a>
-        </h1>
     
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/07/17/basic-pandas-3/">
-            <time datetime="2018-07-17T14:50:03.000Z" itemprop="datePublished">2018-07-17</time>
+        <a href="/2018/07/17/basic-pandas-3/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">판다스 기초 03</div>
         </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Python/">Python</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Pandas/">Pandas</a>, <a class="tag-link" href="/tags/Python/">Python</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="3-데이터-입출력"><a href="#3-데이터-입출력" class="headerlink" title="3. 데이터 입출력"></a>3. 데이터 입출력</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br></pre></td></tr></table></figure>
-<h2 id="1-csv-파일-읽기-read-csv"><a href="#1-csv-파일-읽기-read-csv" class="headerlink" title="1. csv 파일 읽기 - read_csv()"></a>1. csv 파일 읽기 - read_csv()</h2><p>data/ex1.csv 읽기 (컬럼명이 존재하는 csv 파일)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">'./data/ex1.csv'</span>)</span><br><span class="line"></span><br><span class="line">print(data.shape)</span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure></p>
-<p>data/ex2.csv 읽기 (컬럼명이 없는 csv 파일)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pd.read_csv('data/ex2.csv', header = None) #  csv 파일의 첫번째 줄이 컬럼명이 아님을 명시함.</span></span><br><span class="line">data = pd.read_csv(<span class="string">'./data/ex2.csv'</span>, header = <span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">print(data.shape)</span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure></p>
-<p>data/ex3.csv 읽기<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">'./data/ex3.csv'</span>, sep = <span class="string">'\s+'</span>)</span><br><span class="line"></span><br><span class="line">print(data.shape)</span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure></p>
-<p>data/ex4.csv 읽기 (주석이 포함되어 있는 파일 읽기)</p>
-<ol>
-<li>skiprows를 이용하여, 특정 행을 읽지 않도록 함.</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">'./data/ex4.csv'</span>, skiprows = [<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">print(data.shape)</span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>comment 인자를 이용하여, 주석은 데이터로 읽지 않음.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">'./data/ex4.csv'</span>, comment = <span class="string">'#'</span>)</span><br><span class="line"></span><br><span class="line">print(data.shape)</span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="실습-1-read-csv-실습"><a href="#실습-1-read-csv-실습" class="headerlink" title="실습 1. read_csv 실습"></a>실습 1. read_csv 실습</h3><h3 id="ex5-csv-파일-구분자는-공백-하나-‘-‘"><a href="#ex5-csv-파일-구분자는-공백-하나-‘-‘" class="headerlink" title="ex5.csv 파일 - 구분자는 공백 하나(‘ ‘)"></a>ex5.csv 파일 - 구분자는 공백 하나(‘ ‘)</h3><p><img src="https://user-images.githubusercontent.com/29976233/42825839-e46a9296-8a1d-11e8-9392-84117aa19bda.jpg" alt="csv 파일 예제"></p>
-<p>실습 1.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_csv(<span class="string">'./data/ex5.csv'</span>, sep = <span class="string">' '</span>, skiprows = [<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br></pre></td></tr></table></figure></p>
-<p>용량이 매우 큰 파일 읽기.</p>
-<blockquote>
-<p>로딩 시간도 문제지만 메모리 부족 시, OOM(Out Of Memory가 발생함.)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pd.read_csv('data/us_presidental.csv')</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>1) 10줄만 읽어오기<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_csv(<span class="string">'data/us_presidental.csv'</span>, nrows = <span class="number">10</span>)</span><br></pre></td></tr></table></figure></p>
-<p>2) 실제 파일을 읽는 게 아니라, Reader 객체만 생성하여, 일정 갯수만큼씩 읽어오기<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reader = pd.read_csv(<span class="string">'data/us_presidental.csv'</span>, chunksize = <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">reader</span><br></pre></td></tr></table></figure></p>
-<p>chunksize만큼 데이터를 읽어옴.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">next(reader)</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-클립보드를-이용하여-데이터-읽기"><a href="#2-클립보드를-이용하여-데이터-읽기" class="headerlink" title="2. 클립보드를 이용하여 데이터 읽기"></a>2. 클립보드를 이용하여 데이터 읽기</h2><ul>
-<li>IE에서는 안되고, 크롬에서 저장하고자 하는 테이블 형태의 데이터를 복사한 후에 아래 명령어 출력하면, 데이터프레임으로 생성됨.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_clipboard()</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="3-데이터베이스에서-읽기"><a href="#3-데이터베이스에서-읽기" class="headerlink" title="3. 데이터베이스에서 읽기"></a>3. 데이터베이스에서 읽기</h2><h3 id="파이썬에서-sqlite를-내장하고-있음"><a href="#파이썬에서-sqlite를-내장하고-있음" class="headerlink" title="파이썬에서 sqlite를 내장하고 있음"></a>파이썬에서 sqlite를 내장하고 있음</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sqlite3</span><br></pre></td></tr></table></figure>
-<p>테이블 생성 SQL 정의<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">테이블생성 = <span class="string">"""CREATE TABLE locations2</span></span><br><span class="line"><span class="string">                (시 varchar[20], 구 varchar[20], 선호도 integer)"""</span></span><br></pre></td></tr></table></figure></p>
-<p>sqlite 접속<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn = sqlite3.connect(<span class="string">'test.db'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>테이블 생성 SQL 수행<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn.execute(테이블생성)</span><br></pre></td></tr></table></figure></p>
-<p>commit() 수행.</p>
-<ul>
-<li>SQL 수행 후, commit을 해야만 데이터베이스에 SQL 구문이 적용됨<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn.commit()</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>생성된 테이블에 저장할 데이터 정의<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data = [[<span class="string">'서울'</span>,<span class="string">'강남'</span>, <span class="number">15</span>]</span><br><span class="line">       ,[<span class="string">'서울'</span>,<span class="string">'강동'</span>, <span class="number">10</span>]</span><br><span class="line">       ,[<span class="string">'서울'</span>,<span class="string">'동대문'</span>, <span class="number">7</span>]</span><br><span class="line">       ,[<span class="string">'서울'</span>,<span class="string">'양천'</span>, <span class="number">12</span>]</span><br><span class="line">       ,[<span class="string">'성남'</span>,<span class="string">'분당'</span>, <span class="number">12</span>]</span><br><span class="line">       ,[<span class="string">'수원'</span>,<span class="string">'영통'</span>, <span class="number">15</span>]</span><br><span class="line">       ,[<span class="string">'성남'</span>,<span class="string">'중원'</span>, <span class="number">11</span>]</span><br><span class="line">       ,[<span class="string">'수원'</span>,<span class="string">'팔달'</span>, <span class="number">14</span>]</span><br><span class="line">       ]</span><br></pre></td></tr></table></figure></p>
-<p>데이터 적재 SQL 정의<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">적재SQL = <span class="string">'INSERT INTO locations2 VALUES (?,?,?)'</span></span><br></pre></td></tr></table></figure></p>
-<p>데이터 적재 SQL 수행<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn.executemany(적재SQL, data)</span><br></pre></td></tr></table></figure></p>
-<p>commit() 수행<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn.commit()</span><br></pre></td></tr></table></figure></p>
-<p>Select SQL 실행1<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_sql(<span class="string">'SELECT * FROM locations2'</span>, conn)</span><br></pre></td></tr></table></figure></p>
-<p>Select SQL 실행2<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pd.read_sql(<span class="string">'SELECT 시, sum(선호도) \</span></span><br><span class="line"><span class="string">            FROM locations2 \</span></span><br><span class="line"><span class="string">            GROUP BY 시'</span>,conn)</span><br></pre></td></tr></table></figure></p>
-<p>데이터베이스의 테이블 크기가 큰 경우에는 cursor 사용하기<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cursor = conn.execute(<span class="string">'SELECT  * FROM locations2'</span>)</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cursor.fetchmany(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rows = cursor.fetchmany(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame(rows)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cursor.close()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
-<h2 id="4-엑셀-파일-읽기"><a href="#4-엑셀-파일-읽기" class="headerlink" title="4. 엑셀 파일 읽기"></a>4. 엑셀 파일 읽기</h2><h3 id="기본적으로-첫번째-시트에-있는-데이터를-읽어와서-데이터프레임으로-저장함"><a href="#기본적으로-첫번째-시트에-있는-데이터를-읽어와서-데이터프레임으로-저장함" class="headerlink" title="기본적으로 첫번째 시트에 있는 데이터를 읽어와서 데이터프레임으로 저장함."></a>기본적으로 첫번째 시트에 있는 데이터를 읽어와서 데이터프레임으로 저장함.</h3><h3 id="모든-시트를-읽기-위해서는-sheetname인자를-None으로-설정"><a href="#모든-시트를-읽기-위해서는-sheetname인자를-None으로-설정" class="headerlink" title="모든 시트를 읽기 위해서는 sheetname인자를 None으로 설정"></a>모든 시트를 읽기 위해서는 sheetname인자를 None으로 설정</h3><h3 id="sheetname-None-모든-시트의-데이터를-읽어서-사전-형태로-저장됨"><a href="#sheetname-None-모든-시트의-데이터를-읽어서-사전-형태로-저장됨" class="headerlink" title="sheetname = None. 모든 시트의 데이터를 읽어서 사전 형태로 저장됨."></a>sheetname = None. 모든 시트의 데이터를 읽어서 사전 형태로 저장됨.</h3><h3 id="key-시트의-이름-value-각-시트에-있는-데이터들을-저장한-데이터프레임"><a href="#key-시트의-이름-value-각-시트에-있는-데이터들을-저장한-데이터프레임" class="headerlink" title="key = 시트의 이름, value = 각 시트에 있는 데이터들을 저장한 데이터프레임"></a>key = 시트의 이름, value = 각 시트에 있는 데이터들을 저장한 데이터프레임</h3><h3 id="ex6-xlsx-파일"><a href="#ex6-xlsx-파일" class="headerlink" title="ex6.xlsx 파일"></a>ex6.xlsx 파일</h3><p><img src="https://user-images.githubusercontent.com/29976233/42825942-26f6a8ca-8a1e-11e8-870d-aca5e6d1abce.jpg" alt="Excel 파일 예제"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 첫번째 시트 읽기</span></span><br><span class="line">pd.read_excel(<span class="string">'./data/ex6.xlsx'</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 모든 시트 다 읽어오기</span></span><br><span class="line">data = pd.read_excel(<span class="string">'./data/ex6.xlsx'</span>, sheetname = <span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.keys()</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.values()</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data1, data2 = data.values()</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data1</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data2</span><br></pre></td></tr></table></figure>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="https://ryan-chris.github.io/2018/07/17/basic-pandas-3/" data-id="cjjptryth0000w8m347fnvyub" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
     
+</nav>
 
-        </footer>
-    </div>
+
     
 </article>
 
 
-
-    <article id="post-basic-pandas-2" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
     
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/07/16/basic-pandas-2/">판다스 기초 02</a>
-        </h1>
     
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/07/16/basic-pandas-2/">
-            <time datetime="2018-07-16T13:18:03.000Z" itemprop="datePublished">2018-07-16</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Python/">Python</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Pandas/">Pandas</a>, <a class="tag-link" href="/tags/Python/">Python</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="2-Pandas-주요-데이터-타입"><a href="#2-Pandas-주요-데이터-타입" class="headerlink" title="2. Pandas 주요 데이터 타입"></a>2. Pandas 주요 데이터 타입</h1><h2 id="2-2-DataFrame-데이터프레임"><a href="#2-2-DataFrame-데이터프레임" class="headerlink" title="2.2 DataFrame (데이터프레임)"></a>2.2 DataFrame (데이터프레임)</h2><p><img src="https://user-images.githubusercontent.com/29976233/42760889-dd2b4e44-8946-11e8-9915-6dc308acf61d.jpg" alt="dataframe구조"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pandas 라이브러리 임포트</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br></pre></td></tr></table></figure>
-<h3 id="2-2-1-데이터프레임-생성"><a href="#2-2-1-데이터프레임-생성" class="headerlink" title="2.2.1 데이터프레임 생성"></a>2.2.1 데이터프레임 생성</h3><h3 id="생성자-인자"><a href="#생성자-인자" class="headerlink" title="생성자 인자"></a>생성자 인자</h3><h4 id="1-data-dataFrame에-저장할-데이터-numpy-ndarray-dict-DataFrame-등-여러-형태-가능"><a href="#1-data-dataFrame에-저장할-데이터-numpy-ndarray-dict-DataFrame-등-여러-형태-가능" class="headerlink" title="1) data : dataFrame에 저장할 데이터 (numpy ndarray, dict, DataFrame 등 여러 형태 가능)"></a>1) data : dataFrame에 저장할 데이터 (numpy ndarray, dict, DataFrame 등 여러 형태 가능)</h4><h4 id="2-index-행-row-이름-기본값-0부터-1씩-증가하는-정수"><a href="#2-index-행-row-이름-기본값-0부터-1씩-증가하는-정수" class="headerlink" title="2) index : 행(row) 이름, 기본값 = 0부터 1씩 증가하는 정수"></a>2) index : 행(row) 이름, 기본값 = 0부터 1씩 증가하는 정수</h4><h4 id="3-columns-열-column-이름-기본값-0부터-1씩-증가하는-정수"><a href="#3-columns-열-column-이름-기본값-0부터-1씩-증가하는-정수" class="headerlink" title="3) columns : 열(column) 이름, 기본값 = 0부터 1씩 증가하는 정수"></a>3) columns : 열(column) 이름, 기본값 = 0부터 1씩 증가하는 정수</h4><h4 id="4-dtype-데이터-형태-type-만약-지정하지-않으면-파이썬이-자동으로-값의-형태를-보고-결정"><a href="#4-dtype-데이터-형태-type-만약-지정하지-않으면-파이썬이-자동으로-값의-형태를-보고-결정" class="headerlink" title="4) dtype : 데이터 형태(type), 만약 지정하지 않으면 파이썬이 자동으로 값의 형태를 보고 결정"></a>4) dtype : 데이터 형태(type), 만약 지정하지 않으면 파이썬이 자동으로 값의 형태를 보고 결정</h4><h4 id="5-copy-입력-데이터를-복사할지-지정-디폴트는-False-임-복사할-거-아니면-메모리-관리-차원에서-디폴트인-False-설정-사용하면-됨"><a href="#5-copy-입력-데이터를-복사할지-지정-디폴트는-False-임-복사할-거-아니면-메모리-관리-차원에서-디폴트인-False-설정-사용하면-됨" class="headerlink" title="5) copy : 입력 데이터를 복사할지 지정. 디폴트는 False 임. (복사할 거 아니면 메모리 관리 차원에서 디폴트인 False 설정 사용하면 됨)"></a>5) copy : 입력 데이터를 복사할지 지정. 디폴트는 False 임. (복사할 거 아니면 메모리 관리 차원에서 디폴트인 False 설정 사용하면 됨)</h4><ol>
-<li><p>2차원 데이터 생성</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">df1 = DataFrame([</span><br><span class="line">                                [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">                                [<span class="string">'kim'</span>,<span class="string">'park'</span>,<span class="string">'lee'</span>],</span><br><span class="line">                                [<span class="number">1.5</span>, <span class="number">3.2</span>, <span class="number">9.1</span>]</span><br><span class="line">                           ])</span><br><span class="line">df1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>로우 인덱스와 컬럼 인덱스 설정</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df1.index = [<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>]</span><br><span class="line">df1.columns = [<span class="string">'X'</span>,<span class="string">'Y'</span>,<span class="string">'Z'</span>]</span><br><span class="line">df1</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>1,2를 한꺼번에 하기<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">df2 = DataFrame([</span><br><span class="line">                                [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">                                [<span class="string">'kim'</span>,<span class="string">'park'</span>,<span class="string">'lee'</span>],</span><br><span class="line">                                [<span class="number">1.5</span>, <span class="number">3.2</span>, <span class="number">9.1</span>]</span><br><span class="line">                           ],</span><br><span class="line">                index = [<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>],</span><br><span class="line">                columns = [<span class="string">'X'</span>,<span class="string">'Y'</span>,<span class="string">'Z'</span>])</span><br><span class="line">df2</span><br></pre></td></tr></table></figure></p>
-<ol start="3">
-<li>사전 타입 데이터를 이용하여 데이터 프레임 생성하기<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">인구통계 = &#123;<span class="string">'서울'</span>: [<span class="number">1053.5</span>, <span class="number">1023</span>, <span class="number">987</span>],</span><br><span class="line">        <span class="string">'경기'</span>:[<span class="number">1023</span>, <span class="number">1067</span>, <span class="number">1123</span>],</span><br><span class="line">        <span class="string">'충청'</span>:[<span class="number">512</span>,<span class="number">489</span>,<span class="number">487</span>],</span><br><span class="line">        <span class="string">'경상'</span>:[<span class="number">897</span>, <span class="number">872</span>, <span class="number">811</span>],</span><br><span class="line">        <span class="string">'전라'</span>:[<span class="number">451</span>, <span class="number">421</span>, <span class="number">399</span>]</span><br><span class="line">      &#125;</span><br><span class="line">df3 = DataFrame(인구통계)</span><br><span class="line">df3</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="https://user-images.githubusercontent.com/29976233/42760933-fb49156e-8946-11e8-9fe5-dec92eb3ed05.jpg" alt="데이터프레임 구조1"></p>
-<p><img src="https://user-images.githubusercontent.com/29976233/42760937-fcab9a62-8946-11e8-9c30-c6b56b43dcb3.jpg" alt="데이터프레임 구조2"></p>
-<h3 id="2-2-2-DataFrame-속성-조회하기-속성을-조회할-때에는-를-사용하지-않으니-유의하기-바람"><a href="#2-2-2-DataFrame-속성-조회하기-속성을-조회할-때에는-를-사용하지-않으니-유의하기-바람" class="headerlink" title="2.2.2. DataFrame 속성 조회하기 (속성을 조회할 때에는 ()를 사용하지 않으니 유의하기 바람.)"></a>2.2.2. DataFrame 속성 조회하기 (속성을 조회할 때에는 ()를 사용하지 않으니 유의하기 바람.)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># df3에 로우 인덱스를 2015, 2016, 2017로 만들기</span></span><br><span class="line">df3.index = [<span class="number">2015</span>, <span class="number">2016</span>, <span class="number">2017</span>]</span><br><span class="line">df3</span><br></pre></td></tr></table></figure>
-<ol>
-<li><p>T (Transpose) : 행과 열을 바꾸기</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df3.T</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>axes : 행과 열 이름을 리스트로 반환</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df3.axes</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>dtypes : 데이터 형태 반환</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df3.dtypes</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>shape : 행과 열의 개수(차원)을 튜플로 반환</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">df3.shape</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>size : DataFrame의 원소의 개수를 반환</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df3.size</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>index : 데이터프레임의 인덱스를 리스트로 반환</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df3.index</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>columns : 데이터프레임의 컬럼을 리스트로 반환</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df3.columns</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>values : 데이터프레임의 값들을 반환</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df3.values</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="2-2-3-데이터프레임-조회하기"><a href="#2-2-3-데이터프레임-조회하기" class="headerlink" title="2.2.3. 데이터프레임 조회하기"></a>2.2.3. 데이터프레임 조회하기</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 테스트 데이터프레임 생성</span></span><br><span class="line">df4 = DataFrame(&#123;<span class="string">'Col1'</span>: [<span class="number">0</span>, <span class="number">3</span>, <span class="string">'ks01'</span>, <span class="number">2</span>, <span class="number">5</span>],</span><br><span class="line">                       <span class="string">'Col2'</span>: [<span class="string">'big'</span>, <span class="string">'data'</span>, <span class="string">'is'</span>, <span class="string">'very'</span>, <span class="string">'good'</span>],</span><br><span class="line">                       <span class="string">'Col3'</span>: [<span class="number">2.7</span>, <span class="number">-5</span>, <span class="number">2.12</span>, <span class="number">8.31</span>, <span class="number">-1.34</span>],</span><br><span class="line">                       <span class="string">'Col4'</span>: [<span class="keyword">True</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>]&#125;,</span><br><span class="line">                      index=[<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>, <span class="string">'D'</span>, <span class="string">'E'</span>])</span><br><span class="line">df4</span><br></pre></td></tr></table></figure>
-<h2 id="데이터프레임-조회-규칙"><a href="#데이터프레임-조회-규칙" class="headerlink" title="데이터프레임 조회 규칙 "></a><strong>데이터프레임 조회 규칙 </strong></h2><h3 id="로우-인덱스는-숫자-슬라이싱이-되지만-컬럼은-불가능하다-컬럼은-순서-개념이-없음"><a href="#로우-인덱스는-숫자-슬라이싱이-되지만-컬럼은-불가능하다-컬럼은-순서-개념이-없음" class="headerlink" title="로우 인덱스는 숫자 슬라이싱이 되지만, 컬럼은 불가능하다. (컬럼은 순서 개념이 없음)"></a>로우 인덱스는 숫자 슬라이싱이 되지만, 컬럼은 불가능하다. (컬럼은 순서 개념이 없음)</h3><h3 id="기본적으로-“컬럼”을-먼저-인덱싱한다"><a href="#기본적으로-“컬럼”을-먼저-인덱싱한다" class="headerlink" title="기본적으로 “컬럼”을 먼저 인덱싱한다."></a>기본적으로 “컬럼”을 먼저 인덱싱한다.</h3><p><img src="https://user-images.githubusercontent.com/29976233/42760967-1c2148b0-8947-11e8-8117-05dd12dc3a80.jpg" alt="데이터프레임 조회"></p>
-<ol>
-<li><p>col4만 조회하기</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df4[<span class="string">'Col4'</span>]</span><br><span class="line">df4.Col4</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Col2와 Col3 조회하기</p>
-<blockquote>
-<p>여러 개의 컬럼들을 조회하기 위해서는 컬럼명들을 리스트로 선언해야 함.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4[[<span class="string">'Col2'</span>, <span class="string">'Col3'</span>]]</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>로우를 로우 인덱스로 접근하여 조회하기 (loc)</p>
-<blockquote>
-<p>로우 인덱스가 ‘E’인 경우만 조회하기</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4.loc[<span class="string">'E'</span>]</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>로우를 숫자 인덱스로 접근하여 조회하기 (iloc)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4.iloc[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>숫자 인덱스로 슬라이싱하기 (start index는 포함되지만, end index는 포함 안됨.)</p>
-<blockquote>
-<p>숫자 인덱스가 1~4까지 데이터만 조회하기</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4.iloc[:<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ol>
-<p>기본적으로 인덱싱을 하면, 컬럼을 기준으로 탐색을 하지만, 슬라이싱은 컬럼에 적용할 수 없기 때문에 로우에 적용된다.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4[<span class="number">1</span>:<span class="number">3</span>] <span class="comment"># default = df4.loc[1:3] ; 로우만 인덱싱이 가능하기 때문에</span></span><br></pre></td></tr></table></figure></p>
-<ol start="6">
-<li><p>로우 인덱스로 슬라이싱하기 (start index와 end index 모두 포함)</p>
-<blockquote>
-<p>B,C,D까지 조회</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4[<span class="string">'B'</span>:<span class="string">'D'</span>]</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>특정 컬럼과 로우를 동시에 인덱싱하기</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4[[<span class="string">'Col1'</span>, <span class="string">'Col3'</span>]][<span class="number">1</span>:<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>조건 인덱싱</p>
-<blockquote>
-<p>Col3의 값이 0보다 큰 경우만 조회하기</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4[df4[<span class="string">'Col3'</span>] &gt;<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ol>
-<h3 id="아래-결과들이-출력되도록-코드를-완성하시오"><a href="#아래-결과들이-출력되도록-코드를-완성하시오" class="headerlink" title="아래 결과들이 출력되도록 코드를 완성하시오."></a>아래 결과들이 출력되도록 코드를 완성하시오.</h3><p>실습 1<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4[<span class="string">'Col1'</span>]</span><br></pre></td></tr></table></figure></p>
-<p>실습 2<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4[[<span class="string">'Col1'</span>,<span class="string">'Col3'</span>]]</span><br></pre></td></tr></table></figure></p>
-<p>실습 3<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df4.iloc[[<span class="number">0</span>,<span class="number">2</span>]]</span><br><span class="line">df4.loc[[<span class="string">'A'</span>,<span class="string">'C'</span>]]</span><br><span class="line">df4.iloc[[<span class="number">0</span>,<span class="number">2</span>],:]</span><br></pre></td></tr></table></figure></p>
-<p>실습 4<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#df4[['Col1', 'Col2']][1:4]</span></span><br><span class="line"><span class="comment">#df4[['Col1', 'Col2']]['B':'D']</span></span><br><span class="line">df4.iloc[<span class="number">1</span>:<span class="number">4</span>][[<span class="string">'Col1'</span>, <span class="string">'Col2'</span>]]</span><br></pre></td></tr></table></figure></p>
-<h3 id="2-2-4-데이터프레임에-새로운-컬럼-추가하기"><a href="#2-2-4-데이터프레임에-새로운-컬럼-추가하기" class="headerlink" title="2.2.4. 데이터프레임에 새로운 컬럼 추가하기"></a>2.2.4. 데이터프레임에 새로운 컬럼 추가하기</h3><p>컬럼 추가하기 1</p>
-<blockquote>
-<p>Col5 컬럼 추가하고, 값을 1,2,3,4,5로 저장<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df4[<span class="string">'Col5'</span>] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">df4</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>컬럼 추가하기 2 - 기존 컬럼을 이용하여 새 컬럼 추가하기</p>
-<blockquote>
-<p>Col3과 Col5의 값을 합한 값을 ‘Col6’라는 새 컬럼으로 추가<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df4[<span class="string">'Col6'</span>] = df4[<span class="string">'Col3'</span>] + df4[<span class="string">'Col5'</span>]</span><br><span class="line">df4</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="2-2-5-데이터프레임-로우-컬럼-삭제"><a href="#2-2-5-데이터프레임-로우-컬럼-삭제" class="headerlink" title="2.2.5.데이터프레임 로우, 컬럼 삭제"></a>2.2.5.데이터프레임 로우, 컬럼 삭제</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># drop() 함수 사용 (원본 변경 X)</span></span><br><span class="line"><span class="comment">## 첫번째 인자 - 지우고자 하는 인덱스명 (로우 인덱스, 컬럼 인덱스 모두 가능)</span></span><br><span class="line"><span class="comment">## 두번째 인자 (axis)- 0 혹은 1. 0 = 로우 삭제, 1 = 컬럼 삭제</span></span><br></pre></td></tr></table></figure>
-<p>로우 인덱스가 ‘C’인 로우(row) 삭제<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4.drop(<span class="string">'C'</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
-<p>‘Col6’ 컬럼 삭제<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df4.drop(<span class="string">'Col6'</span>, axis = <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="https://ryan-chris.github.io/2018/07/16/basic-pandas-2/" data-id="cjjoapxt600007cm33a7eetew" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-basic-pandas" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/07/06/basic-pandas/">판다스 기초 01</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/07/06/basic-pandas/">
-            <time datetime="2018-07-06T04:43:03.000Z" itemprop="datePublished">2018-07-06</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Python/">Python</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Pandas/">Pandas</a>, <a class="tag-link" href="/tags/Python/">Python</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="파이썬의-과학기술-분야-Ecosystem"><a href="#파이썬의-과학기술-분야-Ecosystem" class="headerlink" title="파이썬의 과학기술 분야 Ecosystem"></a>파이썬의 과학기술 분야 Ecosystem</h1><p><img src="https://user-images.githubusercontent.com/29976233/42640333-0dd12c48-862d-11e8-9156-4d00d8f27691.jpg" alt="Python Ecosystem"></p>
-<h1 id="1-Pandas-소개"><a href="#1-Pandas-소개" class="headerlink" title="1. Pandas 소개"></a>1. Pandas 소개</h1><p><img src="https://user-images.githubusercontent.com/29976233/42640469-54ba20ba-862d-11e8-8544-78038734b99f.jpg" alt="Pandas 소개"></p>
-<h1 id="Pandas-API-공식-문서"><a href="#Pandas-API-공식-문서" class="headerlink" title="[ Pandas API 공식 문서 ]"></a>[ Pandas API 공식 문서 ]</h1><h2 id="http-pandas-pydata-org-pandas-docs-stable-api-html"><a href="#http-pandas-pydata-org-pandas-docs-stable-api-html" class="headerlink" title="http://pandas.pydata.org/pandas-docs/stable/api.html"></a><a href="http://pandas.pydata.org/pandas-docs/stable/api.html" target="_blank" rel="noopener">http://pandas.pydata.org/pandas-docs/stable/api.html</a></h2><h1 id="2-Pandas-주요-데이터-타입"><a href="#2-Pandas-주요-데이터-타입" class="headerlink" title="2. Pandas 주요 데이터 타입"></a>2. Pandas 주요 데이터 타입</h1><h2 id="2-1-Series-시리즈"><a href="#2-1-Series-시리즈" class="headerlink" title="2.1. Series (시리즈)"></a>2.1. Series (시리즈)</h2><p><img src="https://user-images.githubusercontent.com/29976233/42640503-68e3f200-862d-11e8-974b-06562c8ea40c.jpg" alt="Series 소개"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pandas 라이브러리 사용</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 특정 개체를 지정해서 사용</span></span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series <span class="comment"># 자주 사용하는 것은 명시적으로 지정해주는 것이 편리함</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-1-1-Series-생성"><a href="#2-1-1-Series-생성" class="headerlink" title="2.1.1 Series 생성"></a>2.1.1 Series 생성</h2><p>기본 Series 생성<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data1 = pd.Series([<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>])</span><br></pre></td></tr></table></figure></p>
-<p>값은 모든 데이터 타입 가능<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data2 = pd.Series([<span class="string">'bigdata'</span>, <span class="number">33</span>, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]])</span><br></pre></td></tr></table></figure></p>
-<p>인덱스 라벨 추가<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data2.index = [<span class="string">'강의명'</span>, <span class="string">'수강생수'</span>, <span class="string">'비고'</span>]</span><br><span class="line">data2</span><br></pre></td></tr></table></figure></p>
-<p>숫자 인덱스로 값 접근<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data2[<span class="number">1</span>]</span><br></pre></td></tr></table></figure></p>
-<p>인덱스 라벨로 값 접근<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data2[<span class="string">'수강생수'</span>] <span class="comment"># 33</span></span><br></pre></td></tr></table></figure></p>
-<p>사전 타입처럼 인덱스: 값의 형태로도 생성 가능<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data3 = pd.Series(&#123;<span class="string">'a'</span>:<span class="number">1</span>, <span class="string">'b'</span>:<span class="number">2</span>, <span class="string">'c'</span>:<span class="number">10</span>, <span class="string">'d'</span>:<span class="number">5</span>&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>값과 Index 인자를 사용하여, Series 생성<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data4 = pd.Series([<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>,<span class="number">50</span>,<span class="number">60</span>,<span class="number">70</span>,<span class="number">80</span>, <span class="number">90</span>,<span class="number">100</span>],</span><br><span class="line">                 index=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>,<span class="string">'f'</span>,<span class="string">'g'</span>,<span class="string">'h'</span>,<span class="string">'i'</span>,<span class="string">'j'</span>])</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-2-2-Series-색인"><a href="#2-2-2-Series-색인" class="headerlink" title="2.2.2. Series 색인"></a>2.2.2. Series 색인</h2><p>특정 인덱스 접근 (숫자 인덱스)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data4[<span class="number">5</span>]</span><br></pre></td></tr></table></figure></p>
-<p>특정 인덱스 접근 (인덱스 라벨)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data4[<span class="string">'c'</span>]</span><br></pre></td></tr></table></figure></p>
-<p>여러 인덱스 접근<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">data4[[<span class="string">'a'</span>,<span class="string">'c'</span>,<span class="string">'f'</span>]]</span><br></pre></td></tr></table></figure></p>
-<p>숫자 인덱스 (2,7,8,9 항목만 출력)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data4[[<span class="number">2</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]]</span><br></pre></td></tr></table></figure></p>
-<h1 id="인덱스-슬라이싱-숫자-인덱스"><a href="#인덱스-슬라이싱-숫자-인덱스" class="headerlink" title="인덱스 슬라이싱 (숫자 인덱스)"></a>인덱스 슬라이싱 (숫자 인덱스)</h1><p><img src="https://user-images.githubusercontent.com/29976233/42640543-7f6bc9c6-862d-11e8-8105-4aa8c5593158.jpg" alt="문자열 슬라이싱"></p>
-<h3 id="1-을-기점으로-왼쪽에-start-index-오른쪽에-end-index-지정"><a href="#1-을-기점으로-왼쪽에-start-index-오른쪽에-end-index-지정" class="headerlink" title="1) :을 기점으로 왼쪽에 start index, 오른쪽에 end index 지정"></a>1) :을 기점으로 왼쪽에 start index, 오른쪽에 end index 지정</h3><h3 id="2-start-index-보다-크거나-같고-end-index보다-작은-항목을-선택"><a href="#2-start-index-보다-크거나-같고-end-index보다-작은-항목을-선택" class="headerlink" title="2) start index 보다 크거나 같고, end index보다 작은 항목을 선택"></a>2) start index 보다 크거나 같고, end index보다 작은 항목을 선택</h3><h3 id="3-예를-들어-a-2-5-는-a-2-3-4-와-동일"><a href="#3-예를-들어-a-2-5-는-a-2-3-4-와-동일" class="headerlink" title="3) 예를 들어, a[2:5]는 a[[2,3,4]]와 동일"></a>3) 예를 들어, a[2:5]는 a[[2,3,4]]와 동일</h3><h3 id="4-start-index와-end-index는-생략-가능하며-생략-시-start-index는-첫-인덱스-end-index는-끝-인덱스로-지정됨"><a href="#4-start-index와-end-index는-생략-가능하며-생략-시-start-index는-첫-인덱스-end-index는-끝-인덱스로-지정됨" class="headerlink" title="4) start index와 end index는 생략 가능하며, 생략 시 start index는 첫 인덱스, end index는 끝 인덱스로 지정됨."></a>4) start index와 end index는 생략 가능하며, 생략 시 start index는 첫 인덱스, end index는 끝 인덱스로 지정됨.</h3><h3 id="5-음수-인덱스는-끝에서-시작되는-역인덱스임"><a href="#5-음수-인덱스는-끝에서-시작되는-역인덱스임" class="headerlink" title="5) 음수 인덱스는 끝에서 시작되는 역인덱스임."></a>5) 음수 인덱스는 끝에서 시작되는 역인덱스임.</h3><p>숫자 인덱스가 3부터 6까지 슬라이싱<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data4[<span class="number">3</span>:<span class="number">7</span>]</span><br></pre></td></tr></table></figure></p>
-<p>Series의 뒤에서부터 5개 슬라이싱<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data4[<span class="number">-5</span>:]</span><br></pre></td></tr></table></figure></p>
-<p>인덱스 라벨 슬라이싱<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 기본적으로 숫자 인덱스와 동일하나, end index 포함여부가 다름.</span></span><br><span class="line"><span class="comment"># 숫자 인덱스는 end index가 포함되지 않으나, 인덱스 라벨 슬라이싱은 end index가 포함됨.</span></span><br><span class="line">print(data4[:<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">print(data4[<span class="string">'a'</span>:<span class="string">'b'</span>]) <span class="comment"># 라벨 인덱싱의 포함 여부</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="조건을-활용한-인덱스-선택-조건-색인"><a href="#조건을-활용한-인덱스-선택-조건-색인" class="headerlink" title="조건을 활용한 인덱스 선택 (조건 색인)"></a>조건을 활용한 인덱스 선택 (조건 색인)</h1><h1 id="매우-많이-활용되므로-꼭-알고-있어야-함"><a href="#매우-많이-활용되므로-꼭-알고-있어야-함" class="headerlink" title="매우 많이 활용되므로, 꼭 알고 있어야 함!"></a>매우 많이 활용되므로, 꼭 알고 있어야 함!</h1><p><img src="https://user-images.githubusercontent.com/29976233/42640571-920f7b54-862d-11e8-8e2d-10cbd5a46a22.jpg" alt="조건색인"></p>
-<p>data4의 값이 50 이상인 경우만 선택<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">data4[data4 &gt;= <span class="number">50</span>]</span><br></pre></td></tr></table></figure></p>
-<p>data4의 항목값의 평균보다 큰 항목만 선택<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">data4[data4 &gt; data4.mean()]</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-2-3-Series-속성-조회-및-주요-함수"><a href="#2-2-3-Series-속성-조회-및-주요-함수" class="headerlink" title="2.2.3. Series 속성 조회 및 주요 함수"></a>2.2.3. Series 속성 조회 및 주요 함수</h2><h3 id="속성-Attributes"><a href="#속성-Attributes" class="headerlink" title="속성 (Attributes)"></a>속성 (Attributes)</h3><p>1) index - 인덱스 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data4.index</span><br></pre></td></tr></table></figure></p>
-<p>2) values - 값 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data4.values</span><br></pre></td></tr></table></figure></p>
-<p>3) dtype - 데이터 타입 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">data4.dtype</span><br></pre></td></tr></table></figure></p>
-<p>4) size - Series의 크기<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">data4.size</span><br></pre></td></tr></table></figure></p>
-<p>Tip&gt;<br><em>Python List Comprehension</em><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Series로 dict를 만들 수 있나?</span></span><br><span class="line">print(type(&#123;k:v <span class="keyword">for</span> (k,v) <span class="keyword">in</span> zip(data4.index, data4.values)&#125;))</span><br></pre></td></tr></table></figure></p>
-<h3 id="주요-함수"><a href="#주요-함수" class="headerlink" title="주요 함수"></a>주요 함수</h3><p>1) 인덱스 라벨이 있는지 체크<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'c'</span> <span class="keyword">in</span> data4 <span class="comment"># defualt = data.index</span></span><br></pre></td></tr></table></figure></p>
-<p>2) 특정 값이 있는지 체크<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span> <span class="keyword">in</span> data4.values</span><br></pre></td></tr></table></figure></p>
-<p>data4의 모든 항목 값을 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> data4.values:</span><br><span class="line">    print(value)</span><br></pre></td></tr></table></figure></p>
-<p>data4의 모든 인덱스 라벨을 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> label <span class="keyword">in</span> data4.index:</span><br><span class="line">    print(label)</span><br></pre></td></tr></table></figure></p>
-<p>data4의 모든 인덱스 라벨과 값의 쌍을 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> label, value <span class="keyword">in</span> data4.items():</span><br><span class="line">    print(label, <span class="string">' 와 '</span>, value)</span><br></pre></td></tr></table></figure></p>
-<h1 id="더-풀어-보기-실습-문제"><a href="#더-풀어-보기-실습-문제" class="headerlink" title="더 풀어 보기: 실습 문제"></a>더 풀어 보기: 실습 문제</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br></pre></td></tr></table></figure>
-<p>실습 데이터 생성<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sample = random.sample(range(<span class="number">1</span>,<span class="number">100</span>),<span class="number">26</span>) <span class="comment"># 1~100사이의 값을 26개 생성하여 list로 반환</span></span><br><span class="line">data = Series(sample, index = list(<span class="string">'ABCDEFGHIJKLMNOPQRSTUVWXYZ'</span>))</span><br><span class="line">data</span><br></pre></td></tr></table></figure></p>
-<p>1) 인덱스 라벨이 ‘K’ 항목의 값 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">data[<span class="string">'K'</span>]</span><br></pre></td></tr></table></figure></p>
-<p>2) 인덱스 라벨이 ‘A’,’F’,’C’ 항목의 값 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[[<span class="string">'A'</span>,<span class="string">'F'</span>,<span class="string">'C'</span>]]</span><br></pre></td></tr></table></figure></p>
-<p>3) 5번 인덱스부터 15번 인덱스까지의 항목 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="number">5</span>:<span class="number">16</span>]</span><br></pre></td></tr></table></figure></p>
-<p>4) 뒤에서 5개 항목 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="number">-5</span>:]</span><br></pre></td></tr></table></figure></p>
-<p>5) data의 항목의 갯수를 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.size</span><br></pre></td></tr></table></figure></p>
-<p>6) data 항목 값들의 평균보다 큰 항목만 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Hint. data 항목 값들의 평균은 data.mean()으로 구할 수 있다.</span></span><br><span class="line">data[data&gt;data.mean()]</span><br></pre></td></tr></table></figure></p>
-<p>7) data의 항목 값 중에 50이 있는지 확인하여, 있으면 True, 없으면 False를 출력<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">50</span> <span class="keyword">in</span> data.values</span><br></pre></td></tr></table></figure></p>
-<p>8) data의 인덱스 라벨과 각 항목 값을 아래와 같이 출력</p>
-<ul>
-<li><p>방법1</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># index: A, value: XX</span></span><br><span class="line"><span class="comment"># index: B, value: XX</span></span><br><span class="line"><span class="comment"># index: C, value: XX</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> index, value <span class="keyword">in</span> data.items():</span><br><span class="line">    print(<span class="string">'index: &#123;0&#125;, value: &#123;1&#125;'</span>.format(index, value))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>방법2</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> index, value <span class="keyword">in</span> data.items():</span><br><span class="line">    print(<span class="string">'index: '</span>, index, <span class="string">', '</span>,<span class="string">'value: '</span>, value)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="https://ryan-chris.github.io/2018/07/06/basic-pandas/" data-id="cjj9iaxuy0000bkm3fg77qhqd" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/05/03/hello-world/">Hello World</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/05/03/hello-world/">
-            <time datetime="2018-05-02T15:20:32.400Z" itemprop="datePublished">2018-05-03</time>
-        </a>
-    </div>
-
-
-                        
-                        
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="https://ryan-chris.github.io/2018/05/03/hello-world/" data-id="cjj9hyi0s0002vcm3w3ekbcqf" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-
-        </footer>
-    </div>
-    
-</article>
-
 
 </section>
             
