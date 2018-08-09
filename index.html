@@ -52,15 +52,9 @@
             </a>
             <nav id="main-nav">
                 
-                    <a class="main-nav-link" href="/.">Home</a>
+                    <a class="main-nav-link" href="/about">About</a>
                 
                     <a class="main-nav-link" href="/archives">Archives</a>
-                
-                    <a class="main-nav-link" href="/categories">Categories</a>
-                
-                    <a class="main-nav-link" href="/tags">Tags</a>
-                
-                    <a class="main-nav-link" href="/about">About</a>
                 
             </nav>
             
@@ -117,15 +111,9 @@
         <table class="menu outer">
             <tr>
                 
-                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                    <td><a class="main-nav-link" href="/about">About</a></td>
                 
                     <td><a class="main-nav-link" href="/archives">Archives</a></td>
-                
-                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
-                
-                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
-                
-                    <td><a class="main-nav-link" href="/about">About</a></td>
                 
                 <td>
                     
@@ -154,11 +142,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                6
+                7
                 <span>posts</span>
             </div>
             <div class="article-info-block">
-                3
+                6
                 <span>tags</span>
             </div>
         </div>
@@ -201,6 +189,174 @@
 
             
             <section id="main">
+    <article id="post-git_pr" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/08/09/git_pr/">초짜의 Git Pull-Request(PR)</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/08/09/git_pr/">
+            <time datetime="2018-08-09T14:00:03.000Z" itemprop="datePublished">2018-08-09</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Git/">Git</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/PR/">PR</a>, <a class="tag-link" href="/tags/Pull-Request/">Pull-Request</a>, <a class="tag-link" href="/tags/git/">git</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><em>협업 해보고자 PR 자료를 찾으시는 분들에게 도움이 되길 바랍니다.</em></p>
+<blockquote>
+<p>사실, 저도 아직도 github을 잘 모르겠습니다만<br>처음 github pull request를 하면서 겪었던 시행착오를 적어보겠습니다.</p>
+</blockquote>
+<h2 id="들어가기-전에"><a href="#들어가기-전에" class="headerlink" title="들어가기 전에"></a>들어가기 전에</h2><ul>
+<li>github 계정이 있음을 전제로 합니다 :-)</li>
+<li>git으로 add, commit, push 해본 경험이 있으시길 바랍니다.</li>
+</ul>
+<h2 id="PR이-뭔가요"><a href="#PR이-뭔가요" class="headerlink" title="PR이 뭔가요?"></a>PR이 뭔가요?</h2><blockquote>
+<p>github에서 pull request를 PR이라 부르시더군요..</p>
+</blockquote>
+<p>PR을 하는 이유는 여러가지가 있겠지만, 가장 주된 목적은 <em><em>협.업.</em></em> 이지 않을까 싶습니다.<br>저도 PR을 시도한 이유는 수많은 최종 버전 파일을 만들지 않고, 멋있게(?) 프로젝트를 해보고 싶어서..입니다.</p>
+<p><img src="https://user-images.githubusercontent.com/29976233/43903977-97a6133c-9c28-11e8-8e8f-1aa03460889c.PNG" alt="버전 관리의 흔한 예.jpg"></p>
+<h2 id="도전-이번엔-실전이다"><a href="#도전-이번엔-실전이다" class="headerlink" title="도전! 이번엔 실전이다."></a>도전! 이번엔 실전이다.</h2><p>이제 본격적으로 pull request를 해보겠습니다.<br>많은 구글링을 통해서 제일 간단한(?) 방법이라고 생각되는 절차들을 정리했습니다.<br>git을 사용하는 정석이 아닐지도 모릅니다만, 실행은 되는 것 같기에 공유합니다.</p>
+<hr>
+<ol>
+<li>Fork</li>
+<li>Clone 및 git remote 설정</li>
+<li>branch 생성</li>
+<li>(나만의 작업 후) git add, commit, push</li>
+<li>git pull request 생성</li>
+<li>Merge pull request 대기</li>
+<li>Local merge 후 branch 삭제</li>
+</ol>
+<hr>
+<h2 id="1-Fork-하기"><a href="#1-Fork-하기" class="headerlink" title="1. Fork 하기"></a>1. Fork 하기</h2><p>같이 작업 할 저장소로 이동하여 콬! Fork 해옵니다.</p>
+<blockquote>
+<p>저는 홀로 연습을 위해 Organization을 만들었습니다.<br>혼자 연습하시는 분들은 한 번 해보셔도 좋을 듯 합니다.</p>
+</blockquote>
+<p><img src="https://user-images.githubusercontent.com/29976233/43904740-6990080c-9c2a-11e8-8a95-6a4320d02026.PNG" alt="Fork 버튼은 저기에.."></p>
+<h2 id="2-Clone-하고-remote-설정하기"><a href="#2-Clone-하고-remote-설정하기" class="headerlink" title="2. Clone 하고 remote 설정하기"></a>2. Clone 하고 remote 설정하기</h2><p>Fork가 되면 개인 저장소에 원본의 프로젝트가 생깁니다.<br><img src="https://user-images.githubusercontent.com/29976233/43907278-0f13c7fa-9c30-11e8-985e-271d8f2f6de9.PNG" alt="Fork한 저장소를 Clone하기"></p>
+<blockquote>
+<p>(참고)Clone하게 되면 자동으로 Origin remote로 설정됩니다!!</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/계정명/저장소이름.git</span><br></pre></td></tr></table></figure>
+<p>그리고 나서 해야 할 일은 원본 저장소를 remote에 등록하는 것!!</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add 별칭 https://github.com/원본계정명/원본저장소이름.git</span><br></pre></td></tr></table></figure>
+<p><tip> 현재 remote 상태를 보는 명령어는?!</tip></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br></pre></td></tr></table></figure>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="https://ryan-chris.github.io/2018/08/09/git_pr/" data-id="cjkmmn7yy0000l4m39n38zl3i" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-SVM_basic/SVM_실데이터 활용_최종" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -1571,6 +1727,25 @@ Std of X_train_std : 1.0 1.0
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2018/08/09/git_pr/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://user-images.githubusercontent.com/29976233/43906946-691e71d8-9c2f-11e8-8b7d-270548463431.png)" alt="초짜의 Git Pull-Request(PR)" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Git/">Git</a></p>
+                            <p class="item-title"><a href="/2018/08/09/git_pr/" class="title">초짜의 Git Pull-Request(PR)</a></p>
+                            <p class="item-date"><time datetime="2018-08-09T14:00:03.000Z" itemprop="datePublished">2018-08-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2018/07/28/SVM_basic/SVM_실데이터 활용_최종/" class="thumbnail">
     
     
@@ -1644,25 +1819,6 @@ Std of X_train_std : 1.0 1.0
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2018/07/06/basic-pandas/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Python/">Python</a></p>
-                            <p class="item-title"><a href="/2018/07/06/basic-pandas/" class="title">판다스 기초 01</a></p>
-                            <p class="item-date"><time datetime="2018-07-06T04:43:03.000Z" itemprop="datePublished">2018-07-06</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1672,7 +1828,7 @@ Std of X_train_std : 1.0 1.0
     <div class="widget-wrap">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">3</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">3</span></li></ul>
         </div>
     </div>
 
@@ -1681,7 +1837,7 @@ Std of X_train_std : 1.0 1.0
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1690,7 +1846,7 @@ Std of X_train_std : 1.0 1.0
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">5</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PR/">PR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pull-Request/">Pull-Request</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1699,7 +1855,7 @@ Std of X_train_std : 1.0 1.0
     <div class="widget-wrap">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Pandas/" style="font-size: 15px;">Pandas</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a>
+            <a href="/tags/Machine-Learning/" style="font-size: 13.33px;">Machine Learning</a> <a href="/tags/PR/" style="font-size: 10px;">PR</a> <a href="/tags/Pandas/" style="font-size: 16.67px;">Pandas</a> <a href="/tags/Pull-Request/" style="font-size: 10px;">Pull-Request</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
         </div>
     </div>
 
