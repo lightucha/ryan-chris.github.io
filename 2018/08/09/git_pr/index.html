@@ -14,7 +14,7 @@
 <meta property="og:description" content="협업 해보고자 PR 자료를 찾으시는 분들에게 도움이 되길 바랍니다.  사실, 저도 아직도 github을 잘 모르겠습니다만처음 github pull request를 하면서 겪었던 시행착오를 적어보겠습니다.  들어가기 전에 github 계정이 있음을 전제로 합니다 :-) git으로 add, commit, push 해본 경험이 있으시길 바랍니다.  PR이 뭔가요">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://user-images.githubusercontent.com/29976233/43906946-691e71d8-9c2f-11e8-8b7d-270548463431.png">
-<meta property="og:updated_time" content="2018-08-09T15:29:30.060Z">
+<meta property="og:updated_time" content="2018-08-10T05:11:40.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="초짜의 Git Pull-Request(PR)">
 <meta name="twitter:description" content="협업 해보고자 PR 자료를 찾으시는 분들에게 도움이 되길 바랍니다.  사실, 저도 아직도 github을 잘 모르겠습니다만처음 github pull request를 하면서 겪었던 시행착오를 적어보겠습니다.  들어가기 전에 github 계정이 있음을 전제로 합니다 :-) git으로 add, commit, push 해본 경험이 있으시길 바랍니다.  PR이 뭔가요">
@@ -270,13 +270,35 @@
 <p><img src="https://user-images.githubusercontent.com/29976233/43904740-6990080c-9c2a-11e8-8a95-6a4320d02026.PNG" alt="Fork 버튼은 저기에.."></p>
 <h2 id="2-Clone-하고-remote-설정하기"><a href="#2-Clone-하고-remote-설정하기" class="headerlink" title="2. Clone 하고 remote 설정하기"></a>2. Clone 하고 remote 설정하기</h2><p>Fork가 되면 개인 저장소에 원본의 프로젝트가 생깁니다.<br><img src="https://user-images.githubusercontent.com/29976233/43907278-0f13c7fa-9c30-11e8-985e-271d8f2f6de9.PNG" alt="Fork한 저장소를 Clone하기"></p>
 <blockquote>
-<p>(참고)Clone하게 되면 자동으로 Origin remote로 설정됩니다!!</p>
+<p><em>(참고)Clone하게 되면 자동으로 Origin remote로 설정됩니다!!</em></p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/계정명/저장소이름.git</span><br></pre></td></tr></table></figure>
 <p>그리고 나서 해야 할 일은 원본 저장소를 remote에 등록하는 것!!</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add 별칭 https://github.com/원본계정명/원본저장소이름.git</span><br></pre></td></tr></table></figure>
 <p><tip> 현재 remote 상태를 보는 명령어는?!</tip></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br></pre></td></tr></table></figure>
+<h2 id="3-작업을-위한-branch-생성하기"><a href="#3-작업을-위한-branch-생성하기" class="headerlink" title="3. 작업을 위한 branch 생성하기"></a>3. 작업을 위한 branch 생성하기</h2><p>보통 혼자 작업을 하게 되면 master branch로 하게 되는 것 같습니다.<br>branch를 만들어 관리하는 이유는 코드를 통째로 복사한다고 생각하시면 좋을 것 같습니다.</p>
+<p>현재 local에 존재하는 branch를 확인합니다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br></pre></td></tr></table></figure></p>
+<p>새로운 작업을 위한 branch를 생성하겠습니다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b 브랜치별명</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://user-images.githubusercontent.com/29976233/43938836-e8d1f884-9ca0-11e8-8115-d471f5da53f2.PNG" alt="git branch 확인"><br>branch가 생성이 되었으니 원본과 무관하게 독립적으로 작업을 할 수 있습니다.</p>
+<h2 id="4-작업-하고-git-add-commit-push-하기"><a href="#4-작업-하고-git-add-commit-push-하기" class="headerlink" title="4. 작업 하고 git add, commit, push 하기"></a>4. 작업 하고 git add, commit, push 하기</h2><p>그렇다면 이제 원본 저장소에서 가져온 것을 수정(개발) 한 후, 반영을 해보겠습니다.<br>먼저, Fork 해 온 prtest의 저장소에는 README.md 파일만 있었습니다.<br>README.md 파일을 수정해 보고, test1.html이라는 파일을 만들어 반영하겠습니다.</p>
+<p>혹시라도 모르시는 분들을 위해,</p>
+<p>현재 Local과 Stage의 상태를 확인합니다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure></p>
+<p>수정 된 코드를 Stage로 올립니다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add README.md test1.html</span><br></pre></td></tr></table></figure></p>
+<p><br><br><img src="https://user-images.githubusercontent.com/29976233/43939562-f1a986a2-9ca5-11e8-962e-9bf04516de61.PNG" alt="git status / add"><br><br></p>
+<p>Push하기 위해 commit을 합니다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">"메모"</span></span><br></pre></td></tr></table></figure></p>
+<p>이제 저장소로 보냅니다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin 브랜치별명</span><br></pre></td></tr></table></figure></p>
+<p><br><br><img src="https://user-images.githubusercontent.com/29976233/43939608-3f97fefc-9ca6-11e8-9b62-296eb167013c.PNG" alt="git commit / push"><br><br></p>
+<h2 id="5-Github에서-Pull-Request-생성하기"><a href="#5-Github에서-Pull-Request-생성하기" class="headerlink" title="5. Github에서 Pull Request 생성하기"></a>5. Github에서 Pull Request 생성하기</h2><p>push를 완료하고 나면, <code>Compare &amp; Pull Request</code>가 활성화 됩니다.<br><br><img src="https://user-images.githubusercontent.com/29976233/43939381-b000fbdc-9ca4-11e8-9340-7bad442e91c9.PNG" alt="git pull request 생성1"></p>
+<p>주의하실 것은 좌측에 Branch란이 <code>master</code>로 되어 있음을 인지하셔야 합니다!!<br>위에서 작업한 Branch가 아니란 말이죠!! 바꿔주셔야 합니다!!<br><br><img src="https://user-images.githubusercontent.com/29976233/43939413-e384fe40-9ca4-11e8-892a-5cc16e6cfea4.PNG" alt="git pull request 생성2"><br>제가 작업한 것들이 생겼쥬??</p>
+<p>이제 <code>Compare &amp; Pull Request</code> 콬! 클릭하시고, 무엇을 수정한 코드인지 설명을 써줍니다.<br><img src="https://user-images.githubusercontent.com/29976233/43939358-7b7677e8-9ca4-11e8-8a2d-0c313782f95a.PNG" alt="git pull request 생성3"></p>
+<h2 id="6-Merge-대기-및-코드-리뷰"><a href="#6-Merge-대기-및-코드-리뷰" class="headerlink" title="6. Merge 대기 및 코드 리뷰"></a>6. Merge 대기 및 코드 리뷰</h2><p>PR을 생성하고 나면, 내가 수정한 혹은 개발한 코드를 관련 팀원들과 리뷰를 할 수 있습니다.<br><br><img src="https://user-images.githubusercontent.com/29976233/43939465-4b891ee0-9ca5-11e8-98f9-016ffc6a2761.PNG" alt="Merge 대기 중.. 반영해주세요.."><br><br><br>이후 관리자가 Accept 해준다는 의미로 내가 수정한 코드를 원본 저장소로 merge 해줍니다.<br>그러면 아래와 같이 prtest 저장소에 짜~안! 반영이 되었습니다.<br><br><img src="https://user-images.githubusercontent.com/29976233/43939496-8300ece0-9ca5-11e8-80ce-c05b7fbcaf19.PNG" alt="내가 수정한 코드가 반영됐다!! PR성공!!"></p>
+<h2 id="7-Merge-이후-Local-반영-동기화-및-사용했던-branch-삭제하기"><a href="#7-Merge-이후-Local-반영-동기화-및-사용했던-branch-삭제하기" class="headerlink" title="7. Merge 이후 Local 반영(동기화) 및 사용했던 branch 삭제하기"></a>7. Merge 이후 Local 반영(동기화) 및 사용했던 branch 삭제하기</h2><p>Merge가 된 것을 확인하고 나면, 원본 저장소와 개인의 Local과 동일하게 만들어 주어야 합니다.<br>동기화 하기 위해 pull 해줍니다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull remote별명</span><br></pre></td></tr></table></figure>
+<p><br><br><img src="https://user-images.githubusercontent.com/29976233/43939689-b1303264-9ca6-11e8-9fb4-a4f8e6584017.PNG" alt="git pull"><br><br></p>
+<p>그리고 merge된 branch는 삭제 해주면 끝.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -D 브랜치별명</span><br></pre></td></tr></table></figure></p>
+<p><br><br><img src="https://user-images.githubusercontent.com/29976233/43939765-01724384-9ca7-11e8-8945-63ccbdec64f9.PNG" alt="현재 branch 확인"><br><br><br><img src="https://user-images.githubusercontent.com/29976233/43939770-0542ca2e-9ca7-11e8-9c3b-5925bfe588fa.PNG" alt="branch 삭제"></p>
+<p>이후에 반복되는 작업들은 3번부터 반복하시면 됩니다.<br>정석이 아닐수도 있지만, 일단 PR에 성공했으니 함께 공유합니다.<br>git도 너무나 공부할게 많아서 쉽지 않지만, 저와 같은 초짜들에게 도움이 되길 바랍니다.</p>
 
         
         </div>
